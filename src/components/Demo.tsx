@@ -1,34 +1,34 @@
 "use client";
 
-import { useEffect, useCallback, useState, useMemo } from "react";
-import { Input } from "../components/ui/input"
-import { signIn, signOut, getCsrfToken } from "next-auth/react";
 import sdk, {
-    AddFrame,
+  AddFrame,
   FrameNotificationDetails,
   SignIn as SignInCore,
   type Context,
 } from "@farcaster/frame-sdk";
+import { getCsrfToken, signIn, signOut } from "next-auth/react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   useAccount,
+  useChainId,
+  useConnect,
+  useDisconnect,
   useSendTransaction,
   useSignMessage,
   useSignTypedData,
-  useWaitForTransactionReceipt,
-  useDisconnect,
-  useConnect,
   useSwitchChain,
-  useChainId,
+  useWaitForTransactionReceipt,
 } from "wagmi";
+import { Input } from "../components/ui/input";
 
+import { createStore } from 'mipd';
+import { useSession } from "next-auth/react";
+import { BaseError, UserRejectedRequestError } from "viem";
+import { base, degen, mainnet, optimism } from "wagmi/chains";
 import { config } from "~/components/providers/WagmiProvider";
 import { Button } from "~/components/ui/Button";
-import { truncateAddress } from "~/lib/truncateAddress";
-import { base, degen, mainnet, optimism } from "wagmi/chains";
-import { BaseError, UserRejectedRequestError } from "viem";
-import { useSession } from "next-auth/react"
-import { createStore } from 'mipd'
 import { Label } from "~/components/ui/label";
+import { truncateAddress } from "~/lib/truncateAddress";
 
 
 export default function Demo(
@@ -164,7 +164,7 @@ store.subscribe(providerDetails => {
   }, [isSDKLoaded]);
 
   const openUrl = useCallback(() => {
-    sdk.actions.openUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    sdk.actions.openUrl("https://github.com/scoutgame/scoutgame.xyz");
   }, []);
 
   const openWarpcastUrl = useCallback(() => {
